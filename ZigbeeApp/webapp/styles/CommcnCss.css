@@ -1,0 +1,143 @@
+body
+{
+    margin: 0px;
+    padding: 0px;
+    padding: 4px 4px 2px 4px;
+}
+#fiestyle
+{
+    background-color: #E6F0FF;
+    border: 1px solid #95B8E7;
+    padding-left: 11px;
+    height: 80px;
+    margin-bottom: 2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-family: Tahoma,Verdana,微软雅黑,新宋体;
+    font-size: 14px;
+}
+#fiestyle input
+{
+    width: 120px;
+    border: 1px solid #CFCFCF;
+}
+#tbd tr
+{
+    height: 24px;
+}
+#tbd .td1
+{
+    width: 70px;
+    float: left;
+    text-align: right;
+    margin-right: 6px;
+    padding-top: 6px;
+}
+#tbd .td1_1
+{
+    width: 80px;
+    float: left;
+    text-align: right;
+    margin-right: 6px;
+    padding-top: 6px;
+}
+#tbd .td2 input
+{
+    border: 1px solid #CFCFCF;
+}
+#tbd .td2 select
+{
+    width: 153px;
+}
+#ie_plugin
+{
+    display: none;
+}
+
+/** 新增抄表数据统计Tabs样式 Start **/
+.tabs-header1,
+.tabs1,
+.tabs-panels1,
+.tabs1 li a.tabs-inner1,
+.tabs1 li.tabs-selected1 a.tabs-inner1,
+.tabs-header-bottom1 .tabs1 li.tabs-selected1 a.tabs-inner1,
+.tabs-header-left1 .tabs1 li.tabs-selected1 a.tabs-inner1,
+.tabs-header-right1 .tabs1 li.tabs-selected1 a.tabs-inner1 {
+  border-color: #95B8E7;
+}
+.tabs1 {
+  list-style-type: none;
+  height: 26px;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 4px;
+  font-size: 12px;
+  border-style: solid;
+  border-width: 0 0 1px 0;
+}
+.tabs1 li {
+  float: left;
+  display: inline-block;
+  margin: 0 4px -1px 0;
+  padding: 0;
+  position: relative;
+  border: 0;
+}
+.tabs1 li a.tabs-inner1 {
+  display: inline-block;
+  text-decoration: none;
+  margin: 0;
+  padding: 0 10px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  white-space: nowrap;
+  border-width: 1px;
+  border-style: solid;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+.tabs1 li.tabs-selected1 {
+    border-bottom: 1px solid #fff;
+}
+.tabs1 li.tabs-selected1 a.tabs-inner1 {
+  font-weight: bold;
+  outline: none;
+}
+.tabs-panels1 {
+  margin: 0px;
+  padding: 0px;
+  border-width: 1px;
+  border-style: solid;
+  border-top-width: 0;
+  overflow: hidden;
+}
+.tabs1 li.tabs-selected1 a.tabs-inner1 {
+  background-color: #ffffff;
+  color: #0E2D5F;
+  background: -webkit-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
+  background: linear-gradient(to bottom,#EFF5FF 0,#ffffff 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#ffffff,GradientType=0);
+  border-bottom: 1px solid #fff;
+}
+.tabs1 li a.tabs-inner1 {
+  color: #0E2D5F;
+  background-color: #E0ECFF;
+  background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
+}
+/** 新增抄表数据统计Tabs样式 End **/
+
+/**统计表格样式**/
+.tbl_total{border-collapse: collapse; border:1px dotted #ccc;width:100%;text-align:center;}
+.tbl_total .head_title{background-color: #efefef;background: -webkit-linear-gradient(top,#F9F9F9 0,#efefef 100%);}
+.tbl_total tr{height:23px;}
+.tbl_total td {border-collapse: collapse; border:1px dotted #ccc;}

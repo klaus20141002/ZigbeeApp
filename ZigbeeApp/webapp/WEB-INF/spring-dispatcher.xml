@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+		
+    <!-- Configures the @Controller programming model -->
+    <mvc:annotation-driven />
+    
+	<mvc:view-controller path="/" view-name="home" />
+	
+	<mvc:resources mapping="/*" location="/images, /css, /styles, /static, /banner, /js" />
+	
+	<context:component-scan base-package="com.zigbee" use-default-filters="false" >
+		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+	</context:component-scan> 	
+	
+	<!-- Application Message Bundle -->
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+		<list>
+			<value>classpath:messages</value>
+			<value>classpath:errors</value>
+		</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+
+	<!-- Configures Handler Interceptors -->  
+
+
+	<mvc:interceptors>
+			
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang" />
+		</bean>
+		<!--  
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>  
+			<bean class="com.zhaogong.framework.sample.auth.filter.AuthInterceptor">			
+			</bean>
+		
+		</mvc:interceptor>
+		-->	
+	</mvc:interceptors>
+	
+
+	
+	<bean id="logger" class="org.slf4j.LoggerFactory" factory-method="getLogger">
+    	<constructor-arg type="java.lang.String" value="rollingFile"></constructor-arg>
+    </bean>
+
+	<!-- Saves a locale change using a cookie -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+
+    <!-- Resolves view names to protected .jsp resources within the /WEB-INF/jsp directory -->	
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/jsp/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+<!-- 	
+	<bean id="beanValidator"
+		class="org.springmodules.validation.commons.DefaultBeanValidator">
+		<property name="validatorFactory" ref="validatorFactory" />
+	</bean>
+
+	<bean id="validatorFactory"
+		class="org.springmodules.validation.commons.DefaultValidatorFactory">
+		<property name="validationConfigLocations">
+			<list>
+				<value>classpath:validationconf/validator-rules.xml</value>
+				<value>classpath:validationconf/validator.xml</value>
+			</list>
+		</property>
+	</bean>
+-->
+	
+</beans> 
