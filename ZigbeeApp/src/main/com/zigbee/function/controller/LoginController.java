@@ -18,8 +18,6 @@
  ************************************************************************************/
 package com.zigbee.function.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zigbee.framework.common.controller.BaseController;
 import com.zigbee.framework.common.util.Utils;
-import com.zigbee.function.dto.GreenhouseResultDto;
 import com.zigbee.function.dto.LoginDataDto;
 import com.zigbee.function.service.IGreenhouseService;
 
