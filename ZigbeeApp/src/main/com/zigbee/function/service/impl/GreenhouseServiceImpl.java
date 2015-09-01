@@ -47,6 +47,7 @@ import com.zigbee.function.dao.ICfgLightTriggerDao;
 import com.zigbee.function.dao.ICfgSysControlDao;
 import com.zigbee.function.dao.ICfgThresholdDao;
 import com.zigbee.function.dao.ICfgTriggerModeDao;
+import com.zigbee.function.dao.ICo2ConcentrationDao;
 import com.zigbee.function.dao.IEquipmentDao;
 import com.zigbee.function.dao.ILightDao;
 import com.zigbee.function.dao.ILightSummaryDao;
@@ -54,18 +55,23 @@ import com.zigbee.function.dao.ILightSwitchDao;
 import com.zigbee.function.dao.IMonitorPointDao;
 import com.zigbee.function.dao.ITimeConfigrationDao;
 import com.zigbee.function.dao.ITriggerSettingDao;
+import com.zigbee.function.dao.IVideoMessagesDao;
+import com.zigbee.function.dao.IWarningMessagesDao;
 import com.zigbee.function.domain.AirTemperature;
 import com.zigbee.function.domain.AirWetness;
 import com.zigbee.function.domain.CfgLightTrigger;
 import com.zigbee.function.domain.CfgSysControl;
 import com.zigbee.function.domain.CfgThreshold;
 import com.zigbee.function.domain.CfgTriggerMode;
+import com.zigbee.function.domain.Co2Concentration;
 import com.zigbee.function.domain.Equipment;
 import com.zigbee.function.domain.Light;
 import com.zigbee.function.domain.LightSummary;
 import com.zigbee.function.domain.LightSwitch;
 import com.zigbee.function.domain.MonitorPoint;
 import com.zigbee.function.domain.TriggerSetting;
+import com.zigbee.function.domain.VideoMessages;
+import com.zigbee.function.domain.WarningMessages;
 import com.zigbee.function.dto.CascadeCfgEditDto;
 import com.zigbee.function.dto.ChartSeriesDto;
 import com.zigbee.function.dto.EquipSwitchScheduleEditDto;
@@ -77,6 +83,8 @@ import com.zigbee.function.dto.LightTriggerMasterDto;
 import com.zigbee.function.dto.MonitorDetailDto;
 import com.zigbee.function.dto.ThresholdItemDto;
 import com.zigbee.function.dto.ThresholdMasterDto;
+import com.zigbee.function.dto.VideoMessagesDto;
+import com.zigbee.function.dto.WarningMessagesDto;
 import com.zigbee.function.service.IGreenhouseService;
 
 /**
@@ -127,6 +135,15 @@ public class GreenhouseServiceImpl extends BaseServiceImpl implements
 
 	@Resource(name = "cfgTriggerModeDao")
 	private ICfgTriggerModeDao cfgTriggerModeDao;
+	
+	@Resource(name = "warningMessagesDao")
+	private IWarningMessagesDao warningMessagesDao;
+	
+	@Resource(name = "videoMessagesDao")
+	private IVideoMessagesDao videoMessagesDao;
+	
+	@Resource(name = "co2ConcentrationDao")
+	private ICo2ConcentrationDao co2ConcentrationDao;
 	
 	public static final Float TEMPERATURE_DEFAULT_VALUE = 15f;
 	public static final Float WETNESS_DEFAULT_VALUE = 25f;
@@ -496,6 +513,9 @@ public class GreenhouseServiceImpl extends BaseServiceImpl implements
 				//构建光照List
 				ChartSeriesDto lightDto = getDailyLightChart(equipmentId); 
 				result.add(lightDto);
+				//构建CO2List
+				ChartSeriesDto Co2Dto = getDailyCo2Chart(equipmentId); 
+				result.add(Co2Dto);
 			}else if(fetchType == GreenhouseCommonConstants.FETCH_TYPE_WEEKLY){
 				//构建温度list
 				//构建湿度List
@@ -1272,12 +1292,14 @@ public class GreenhouseServiceImpl extends BaseServiceImpl implements
 			retDto.setAirTemperatureValue(0f);
 			retDto.setAirWetnessValue(0f);
 			retDto.setLightValue(0);
+			retDto.setCo2Value(0f);
 			retDto.setUploadDate(null);
 		}else{
 			GreenhouseResultDto accqInfo = accqInfoList.get(0);
 			retDto.setAirTemperatureValue(accqInfo.getAirTemperatureValue());
 			retDto.setAirWetnessValue(accqInfo.getAirWetnessValue());
 			retDto.setLightValue(accqInfo.getLightValue());
+			retDto.setCo2Value(accqInfo.getCO2Value());
 			retDto.setUploadDate(accqInfo.getUploadDate());
 		}
 		
@@ -1308,6 +1330,103 @@ public class GreenhouseServiceImpl extends BaseServiceImpl implements
 		}
 		
 		return retDto;
+	}
+
+
+	/** 
+	 * overridden:
+	 * @Author      :      GUDONG
+	 * @Date        :      2015年8月30日
+	 * @see com.zigbee.function.service.IGreenhouseService#getAllWarningMessages()
+	**/
+	@Override
+	public List<WarningMessagesDto> getAllWarningMessages() {
+		List<WarningMessagesDto> list = new ArrayList<WarningMessagesDto>();
+		List<WarningMessages> warning = warningMessagesDao.getAllWarningMessages();
+		if(warning != null && !warning.isEmpty()){
+			for(int i = 0;i < warning.size();i++){
+				WarningMessagesDto warningMessage = new WarningMessagesDto();
+				warningMessage.setTimestamp(warning.get(i).getTimestamp());
+				if(warning.get(i).getWarningtype() == 1){
+					warningMessage.setDataAlarmType(GreenhouseCommonConstants.DATA_ACQU_TYPE_1);
+				}else if(warning.get(i).getWarningtype() == 2){
+					warningMessage.setDataAlarmType(GreenhouseCommonConstants.DATA_ACQU_TYPE_2);
+				}else if(warning.get(i).getWarningtype() == 3){
+					warningMessage.setDataAlarmType(GreenhouseCommonConstants.DATA_ACQU_TYPE_3);
+				}else if(warning.get(i).getWarningtype() == 4){
+					warningMessage.setDataAlarmType(GreenhouseCommonConstants.DATA_ACQU_TYPE_4);
+				}else if(warning.get(i).getWarningtype() == 5){
+					warningMessage.setDataAlarmType(GreenhouseCommonConstants.DATA_ACQU_TYPE_5);
+				}
+				warningMessage.setContent(warning.get(i).getContent());
+				list.add(warningMessage);
+			}
+		}
+		return list;
+	}
+
+
+	/** 
+	 * overridden:
+	 * @Author      :      GUDONG
+	 * @Date        :      2015年8月30日
+	 * @see com.zigbee.function.service.IGreenhouseService#getAllVideoMessages()
+	**/
+	@Override
+	public List<VideoMessagesDto> getAllVideoMessages() {
+		List<VideoMessagesDto> list = new ArrayList<VideoMessagesDto>();
+		List<VideoMessages> video = videoMessagesDao.getAllVideoMessages();
+		if(video != null && !video.isEmpty()){
+			for(int i = 0;i < video.size();i++){
+				VideoMessagesDto videoMessage = new VideoMessagesDto();
+				videoMessage.setTimestamp(video.get(i).getTimestamp());
+				videoMessage.setVideoName(video.get(i).getVideoName());
+				videoMessage.setVideoUrl(video.get(i).getVideoUrl());
+				list.add(videoMessage);
+			}
+		}
+		return list;
+	}
+
+
+	/** 
+	 * overridden:
+	 * @Author      :      GUDONG
+	 * @Date        :      2015年8月31日
+	 * @see com.zigbee.function.service.IGreenhouseService#getDailyCo2Chart(java.lang.Integer)
+	**/
+	@Override
+	public ChartSeriesDto getDailyCo2Chart(Integer equipmentId) {
+		//后台查询，输入参数为设备ID
+		List<Co2Concentration> co2List = co2ConcentrationDao.getHoursListByEquipId(equipmentId);
+		Map<Integer,Float> hourValMap = new HashMap<Integer,Float>(24);
+		//初始化，设置每个小时的初始值为0
+		for(int i = 0; i<24 ; i++){
+			hourValMap.put(i, new Float(0));
+		}
+		//后台数据更新map
+		if(co2List!=null){
+			Calendar cal = Calendar.getInstance();
+			for(Co2Concentration co2 : co2List){
+				cal.setTime(co2.getUploadDate());
+				hourValMap.put(cal.get(Calendar.HOUR_OF_DAY),co2.getDataValue());
+			}
+		}
+		
+		//构建返回对象子元素
+		List<Float> data = new ArrayList<Float>(24);
+		List<String> xAxis = new ArrayList<String>(24);
+		for(int i = 0; i<24 ; i++){
+			xAxis.add(String.valueOf(i));
+			data.add(hourValMap.get(i));
+		}
+		//构建返回对象
+		ChartSeriesDto dto = new ChartSeriesDto();
+		dto.setName("CO2浓度");
+		dto.setxAxis(xAxis);
+		dto.setData(data);
+		
+		return dto;
 	}
 	
 	
