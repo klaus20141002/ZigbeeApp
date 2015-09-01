@@ -20,7 +20,6 @@ package com.zigbee.function.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +36,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.zigbee.framework.common.controller.BaseController;
 import com.zigbee.framework.common.util.JSONUtil;
-import com.zigbee.framework.common.util.Utils;
 import com.zigbee.function.constant.GreenhouseCommonConstants;
 import com.zigbee.function.dto.CascadeCfgEditDto;
 import com.zigbee.function.dto.ChartSeriesDto;
@@ -48,6 +46,8 @@ import com.zigbee.function.dto.GreenhouseResultDto;
 import com.zigbee.function.dto.LightTriggerMasterDto;
 import com.zigbee.function.dto.MonitorDetailDto;
 import com.zigbee.function.dto.ThresholdMasterDto;
+import com.zigbee.function.dto.VideoMessagesDto;
+import com.zigbee.function.dto.WarningMessagesDto;
 import com.zigbee.function.service.IGreenhouseService;
 
 /**
@@ -354,6 +354,35 @@ public class GreenhouseMgntController extends BaseController {
         model.addAttribute("dto", dto);
         return "greenhouse/lightTriggerConfig";
     }
+	/**
+	 * @Author      :      GUDONG
+	 * @Date        :      2015年8月30日
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/toShowWarningMessages")
+	public String toShowWarningMessages(Model model,
+			HttpServletRequest request) {
+		List<WarningMessagesDto> WarningMessages = greenhouseService.getAllWarningMessages();
+		model.addAttribute("WarningMessages", WarningMessages);
+		return "greenhouse/showWarningMessages";
+	}
+	
+	/**
+	 * @Author      :      GUDONG
+	 * @Date        :      2015年8月30日
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/toShowVideoMessages")
+	public String toShowVideoMessages(Model model,
+			HttpServletRequest request) {
+		List<VideoMessagesDto> videoMessagesDto = greenhouseService.getAllVideoMessages();
+		model.addAttribute("videoMessagesDto", videoMessagesDto);
+		return "greenhouse/showVideoMessages";
+	}
 	
 	/**
 	 * 
