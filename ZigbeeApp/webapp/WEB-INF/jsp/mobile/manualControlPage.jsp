@@ -70,7 +70,7 @@ text-align:center;
 
 .tag_left {
 	width: 300px;
-	height: 500px;
+	height: 565px;
 	overflow: hidden;
 	float: left;
 	border-right:1px solid #95B8E7 ; 
@@ -79,7 +79,7 @@ text-align:center;
 .tag_right {
 	float: right;
 	width: 630px;
-	height: 500px;
+	height: 565px;
 	overflow: hidden;
 }
 .tag_right_1 {
@@ -97,7 +97,7 @@ text-align:center;
 }
 .tag_right_3 {
 	float: right;
-	height: 100px;
+	height: 145px;
 	width: 630px;
 	overflow: hidden;
 	border-bottom:1px solid #95B8E7 ;
@@ -189,7 +189,7 @@ setTimeout("autoRefreshData()",600000);
 </head>
 
 <body>
-	<div class="easyui-panel" title="手动控制" style="width:985px; height:560px; ">
+	<div class="easyui-panel" title="手动控制" style="width:985px; height:615px; padding:0 0 0 0; ">
 		<div style="padding:10px 10px 20px 10px">
 		<div class="tag_left">
 			<table cellpadding="5">
@@ -233,6 +233,14 @@ setTimeout("autoRefreshData()",600000);
 				</td>
 				</tr>
 				<tr>
+				<td class="label" style="text-align:right;padding:5px">
+					<span>CO2控制</span>
+				</td>
+				<td>
+					<img src="${imagepath}/btn_off_gray.jpg"/>
+				</td>
+				</tr>
+				<tr>
 				<td colspan="2">
 					<img src="${imagepath}/caomei-large.jpg"/>
 				</td>
@@ -261,6 +269,10 @@ setTimeout("autoRefreshData()",600000);
 					<td class="label">最后更新</td>
 					<td><input type="text" readonly="readonly" class="readonly" 
 					value="<fmt:formatDate value='${dto.uploadDate}' pattern='MM-dd HH:mm:ss'/>"/></td>
+				</tr>
+				<tr>
+					<td class="label">CO2浓度</td>
+					<td><input type="text" readonly="readonly" class="readonly" value="${dto.co2Value}" /></td>
 				</tr>
 				</table>
 			</form>
