@@ -55,4 +55,10 @@ public interface GreenhouseCommonConstants {
 	
 	public static final int SYSCONTROL_MODE_AUTO = 1;
 	public static final int SYSCONTROL_MODE_MANUAL = 2;
+	
+	public static final String DATA_ACQU_TYPE_1 = "空气温度";
+	public static final String DATA_ACQU_TYPE_2 = "空气湿度";
+	public static final String DATA_ACQU_TYPE_3 = "光照度";
+	public static final String DATA_ACQU_TYPE_4 = "co2";
+	public static final String DATA_ACQU_TYPE_5 = "灌溉报警";
 }
