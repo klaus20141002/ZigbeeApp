@@ -42,6 +42,7 @@ public class MonitorDetailDto extends BaseDto {
     private Float airTemperatureValue;//
     private Float airWetnessValue;
     private Integer lightValue;//光照值
+    private Float co2Value;//二氧化碳浓度值
 
     private Integer curMode; //自动手动
     private int switchOnoff = 0;  //当前开关状态 
@@ -316,6 +317,28 @@ public class MonitorDetailDto extends BaseDto {
 	 */
 	public void setCurModeId(Integer curModeId) {
 		this.curModeId = curModeId;
+	}
+
+	/**
+	 * @Author      :      GUDONG
+	 *
+	 * @Date        :      2015年8月30日
+	 *
+	 * @return the co2Value
+	 */
+	public Float getCo2Value() {
+		return co2Value;
+	}
+
+	/**
+	 * @Author      :      GUDONG
+	 *
+	 * @Date        :      2015年8月30日
+	 *
+	 * @param co2Value the co2Value to set
+	 */
+	public void setCo2Value(Float co2Value) {
+		this.co2Value = co2Value;
 	}
 	
 }

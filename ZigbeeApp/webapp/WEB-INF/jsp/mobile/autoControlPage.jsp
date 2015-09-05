@@ -96,7 +96,7 @@ text-align:center;
 .tag_left {
 	float: left;
 	width: 630px;
-	height: 500px;
+	height: 550px;
 	overflow: hidden;
 	border-right:1px solid #95B8E7 ; 
 }
@@ -110,7 +110,7 @@ text-align:center;
 }
 .tag_left_3 {
 	float: left;
-	height: 200px;
+	height: 250px;
 	width: 630px;
 	overflow: hidden;
 	border-bottom:1px solid #95B8E7 ;
@@ -195,7 +195,7 @@ setTimeout("autoRefreshData()",600000);
 </head>
 
 <body>
-	<div class="easyui-panel" title="自动控制" style="width:985px; height:560px; ">
+	<div class="easyui-panel" title="自动控制" style="width:985px; height:615px; ">
 		<div style="padding:10px 10px 20px 10px">
 		<div class="tag_left">
 		<div class="tag_left_2">
@@ -216,6 +216,10 @@ setTimeout("autoRefreshData()",600000);
 					<td class="label">最后更新</td>
 					<td><input type="text" readonly="readonly" class="readonly" 
 					value="<fmt:formatDate value='${dto.uploadDate}' pattern='MM-dd HH:mm:ss'/>"/></td>
+				</tr>
+				<tr>
+					<td class="label">CO2  浓度</td>
+					<td><input type="text" readonly="readonly" class="readonly" value="${dto.co2Value}" /></td>
 				</tr>
 				<tr>
 					<td colspan="1"  style="text-align:center;">

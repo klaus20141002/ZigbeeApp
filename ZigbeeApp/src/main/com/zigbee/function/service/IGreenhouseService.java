@@ -32,6 +32,8 @@ import com.zigbee.function.dto.GreenhouseResultDto;
 import com.zigbee.function.dto.LightTriggerMasterDto;
 import com.zigbee.function.dto.MonitorDetailDto;
 import com.zigbee.function.dto.ThresholdMasterDto;
+import com.zigbee.function.dto.VideoMessagesDto;
+import com.zigbee.function.dto.WarningMessagesDto;
 
 /**
  *
@@ -147,7 +149,13 @@ public interface IGreenhouseService extends IBaseService {
 	 * @return
 	 */
 	ChartSeriesDto getDailyLightChart(Integer equipmentId);
-
+	/**
+	 * @Author      :      GUDONG
+	 * @Date        :      2015年8月31日
+	 * @param equipmentId
+	 * @return
+	 */
+	ChartSeriesDto getDailyCo2Chart(Integer equipmentId);
 	/**
 	 * @Author      :      ZHWANG
 	 * @Date        :      2014-9-17
@@ -253,4 +261,16 @@ public interface IGreenhouseService extends IBaseService {
 	 * @return
 	 */
 	boolean saveSysControlMode(EquipSwitchScheduleEditDto editDto);
+	/**
+	 * @Author      :      GUDONG
+	 * @Date        :      2015年8月30日
+	 * @return
+	 */
+	List<WarningMessagesDto> getAllWarningMessages();
+	/**
+	 * @Author      :      GUDONG
+	 * @Date        :      2015年8月30日
+	 * @return
+	 */
+	List<VideoMessagesDto> getAllVideoMessages();
 }
