@@ -1,17 +1,23 @@
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.web.client.RestTemplate;
 
 import com.zigbee.framework.common.util.ApplicationContextUtil;
 import com.zigbee.function.constant.MailTrackConstant;
+import com.zigbee.function.constant.WarningConstants;
+import com.zigbee.function.dto.WarningInputDto;
 import com.zigbee.function.service.IMailAppService;
+import com.zigbee.function.service.IWarningService;
 
 /************************************************************************************
  * @File name   :      MailAppServiceTest.java
@@ -35,10 +41,15 @@ import com.zigbee.function.service.IMailAppService;
 /**
  *
  */
-public class MailAppServiceTest {
+@ContextConfiguration(locations = { "classpath*:spring-context.xml" })
+public class MailAppServiceTest extends AbstractJUnit4SpringContextTests  {
 
-    private static final String CONFIG = "D:/workspace/MailServiceApp/webapp/WEB-INF/spring-context.xml";
-    private static IMailAppService mailAppService;
+//    private static final String CONFIG = "D:/workspace_greenhouse/ZigbeeApp/webapp/WEB-INF/spring-context.xml";
+    @Autowired
+	private static IMailAppService mailAppService;
+    
+    @Autowired
+    private IWarningService warningService ;
 	/**
 	 * @Author      :      YIFEGU
 	 * @Date        :      2011-9-27
@@ -47,8 +58,9 @@ public class MailAppServiceTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		try {
-            ApplicationContext applicationContext = new FileSystemXmlApplicationContext(CONFIG);
-            mailAppService = (IMailAppService) applicationContext.getBean("mailAppServiceImpl");
+//            ApplicationContext applicationContext = new FileSystemXmlApplicationContext(CONFIG);
+//            mailAppService = (IMailAppService) applicationContext.getBean("mailAppServiceImpl");
+//            warningService = (IWarningService) applicationContext.getBean("WarningServiceImpl");
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
@@ -84,4 +96,14 @@ public class MailAppServiceTest {
 
 	}
 
+	
+	
+	@Test
+	public void testWarningReport(){
+		
+		WarningInputDto dto = new WarningInputDto();
+		dto.setAlertType(WarningConstants.COZ_WARING);
+		dto.setDataDalue(20);
+		warningService.alermReport(dto);
+	}
 }

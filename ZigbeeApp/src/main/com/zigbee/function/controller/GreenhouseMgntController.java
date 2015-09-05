@@ -20,7 +20,6 @@ package com.zigbee.function.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +36,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.zigbee.framework.common.controller.BaseController;
 import com.zigbee.framework.common.util.JSONUtil;
-import com.zigbee.framework.common.util.Utils;
 import com.zigbee.function.constant.GreenhouseCommonConstants;
 import com.zigbee.function.dto.CascadeCfgEditDto;
 import com.zigbee.function.dto.ChartSeriesDto;
@@ -286,7 +284,7 @@ public class GreenhouseMgntController extends BaseController {
 	        HttpServletRequest request,HttpServletResponse response) {
 		//save config
 		
-		boolean result = greenhouseService.saveCascadeCfg(editDto);
+//		boolean result = greenhouseService.saveCascadeCfg(editDto);
 		//构建dto在前台展示
 		/*CascadeCfgEditDto retDto = new CascadeCfgEditDto();
 		BeanCopyUtil.copyProperties(editDto, retDto);
@@ -334,7 +332,7 @@ public class GreenhouseMgntController extends BaseController {
 	        HttpServletRequest request,HttpServletResponse response) {
 		//save config
 		System.out.println();
-		boolean result = greenhouseService.saveThresholdConfig(editDto);
+//		boolean result = greenhouseService.saveThresholdConfig(editDto);
 		return "success";
 	}
 	
@@ -370,7 +368,7 @@ public class GreenhouseMgntController extends BaseController {
 	public String saveLightTriggerConfig(LightTriggerMasterDto editDto, Model model,
 	        HttpServletRequest request,HttpServletResponse response) {
 		//save config
-		boolean result = greenhouseService.saveLightTriggerConfig(editDto);
+//		boolean result = greenhouseService.saveLightTriggerConfig(editDto);
 		return "success";
 	}
 	
@@ -450,7 +448,7 @@ public class GreenhouseMgntController extends BaseController {
 		if(editDto.getCurMode()==null){
 			editDto.setCurMode(GreenhouseCommonConstants.SYSCONTROL_MODE_AUTO);
 		}
-		boolean result = greenhouseService.saveSysControlMode(editDto);
+//		boolean result = greenhouseService.saveSysControlMode(editDto);
 		return "success";
 	}
 	
