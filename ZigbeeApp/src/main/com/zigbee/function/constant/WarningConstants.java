@@ -23,7 +23,15 @@ package com.zigbee.function.constant;
  */
 public class WarningConstants {
 	public static final int COZ_WARING = 1;
-	public static final int temperature_WARING = 2;
-	public static final int humiditye_WARING = 3;
-	public static final int water_level_WARING = 4;
+	public static final int TEMPERATURE_WARING = 2;
+	public static final int HUMIDITYE_WARING = 3;
+	public static final int WATER_LEVEL_WARING = 4;
+	
+	
+	public static final int THRESHOLD_TEMP = 1;
+	public static final int THRESHOLD_HUM = 2;
+	public static final int THRESHOLD_COZ = 3;
+	
+	
+	
 }

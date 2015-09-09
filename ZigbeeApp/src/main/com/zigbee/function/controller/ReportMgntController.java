@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.zigbee.function.constant.WarningConstants;
 import com.zigbee.function.dto.AirTemperatureReportInputDto;
 import com.zigbee.function.dto.AirTemperatureSettingDto;
 import com.zigbee.function.dto.CozInputDto;
@@ -35,6 +36,7 @@ import com.zigbee.function.dto.ReportResultDto;
 import com.zigbee.function.dto.WarningInputDto;
 import com.zigbee.function.service.IAirTemperatureAlarmService;
 import com.zigbee.function.service.IAirTemperatureService;
+import com.zigbee.function.service.ICfgThresholdService;
 import com.zigbee.function.service.ICozService;
 import com.zigbee.function.service.IIlluminanceService;
 import com.zigbee.function.service.IWarningService;
@@ -56,6 +58,8 @@ public class ReportMgntController {
 	@Autowired
 	private IWarningService warningService ;
 	
+	@Autowired
+	private ICfgThresholdService cfgThresholdService ;
 	/*
 	 * temperature report
 	 */
@@ -74,7 +78,8 @@ public class ReportMgntController {
 	@ResponseBody
     public AirTemperatureSettingDto airTemperatureReport() {
 		AirTemperatureSettingDto result = new AirTemperatureSettingDto();
-		//	show ? what kind of conditions 
+		result.setTemp_threshold(cfgThresholdService.getThreshold(WarningConstants.THRESHOLD_TEMP).intValue());
+		result.setHum_threshold(cfgThresholdService.getThreshold(WarningConstants.THRESHOLD_HUM).intValue());
 	    return result;
     }
 	
@@ -95,6 +100,7 @@ public class ReportMgntController {
 	@ResponseBody
     public CozThresholdDto cozThreshold(@RequestBody String query) {
 		CozThresholdDto result = new CozThresholdDto();
+		result.setCo2_threshold(cfgThresholdService.getThreshold(WarningConstants.THRESHOLD_COZ).intValue());
 	    return result;
     }
 	/*

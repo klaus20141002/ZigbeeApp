@@ -1,9 +1,9 @@
 /************************************************************************************
- * @File name   :      WaterLevelAlermServiceImpl.java
+ * @File name   :      CfgThresholdServiceImpl.java
  *
- * @Author      :      DUZHOU
+ * @Author      :      Hasee
  *
- * @Date        :      2015年8月30日
+ * @Date        :      2015年9月9日
  *
  * @Copyright Notice: 
  * Copyright (c) 2011 , Inc. All  Rights Reserved.
@@ -14,34 +14,43 @@
  * 
  * ----------------------------------------------------------------------------------
  * Date								Who					Version				Comments
- * 2015年8月30日 下午3:19:08			DUZHOU			1.0				Initial Version
+ * 2015年9月9日 下午10:23:00			Hasee			1.0				Initial Version
  ************************************************************************************/
 package com.zigbee.function.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zigbee.framework.common.exception.AppException;
 import com.zigbee.framework.common.service.impl.BaseServiceImpl;
-import com.zigbee.function.service.IWaterLevelAlermService;
+import com.zigbee.function.dao.ICfgThresholdDao;
+import com.zigbee.function.domain.CfgThreshold;
+import com.zigbee.function.service.ICfgThresholdService;
 
 /**
  *
  */
 @Transactional(rollbackFor = AppException.class)
 @Service
-public class WaterLevelAlermServiceImpl  extends BaseServiceImpl implements IWaterLevelAlermService {
-
+public class CfgThresholdServiceImpl extends BaseServiceImpl implements ICfgThresholdService {
+	@Autowired
+	private ICfgThresholdDao cfgThresholdDao ;
 	/** 
 	 * overridden:
-	 * @Author      :      DUZHOU
-	 * @Date        :      2015年8月30日
-	 * @see com.zigbee.function.service.IWaterLevelAlermService#waterLevelAlermReport()
+	 * @Author      :      Hasee
+	 * @Date        :      2015年9月9日
+	 * @see com.zigbee.function.service.ICfgThresholdService#getThreshold(int)
 	**/
 	@Override
-	public int waterLevelAlermReport() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Float getThreshold(int type) {
+		List<CfgThreshold> list = cfgThresholdDao.queryVariantListByType(type);
+		if(list!=null && !list.isEmpty()) {
+			return list.get(0).getCfgValue() ;
+		}
+		return 0f;
 	}
 
 }
