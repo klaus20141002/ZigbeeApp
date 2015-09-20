@@ -23,46 +23,19 @@ package com.zigbee.function.dto;
  */
 public class WarningInputDto {
 	private int alertType ;
-	private int dataDalue ;
-	/**
-	 * @Author      :      DUZHOU
-	 *
-	 * @Date        :      2015年9月5日
-	 *
-	 * @return the alertType
-	 */
+	private int data_value ;
 	public int getAlertType() {
 		return alertType;
 	}
-	/**
-	 * @Author      :      DUZHOU
-	 *
-	 * @Date        :      2015年9月5日
-	 *
-	 * @param alertType the alertType to set
-	 */
 	public void setAlertType(int alertType) {
 		this.alertType = alertType;
 	}
-	/**
-	 * @Author      :      DUZHOU
-	 *
-	 * @Date        :      2015年9月5日
-	 *
-	 * @return the dataDalue
-	 */
-	public int getDataDalue() {
-		return dataDalue;
+	public int getData_value() {
+		return data_value;
 	}
-	/**
-	 * @Author      :      DUZHOU
-	 *
-	 * @Date        :      2015年9月5日
-	 *
-	 * @param dataDalue the dataDalue to set
-	 */
-	public void setDataDalue(int dataDalue) {
-		this.dataDalue = dataDalue;
+	public void setData_value(int data_value) {
+		this.data_value = data_value;
 	}
+	
 	
 }

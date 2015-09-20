@@ -22,23 +22,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.zigbee.function.constant.WarningConstants;
 import com.zigbee.function.dto.AirTemperatureReportInputDto;
 import com.zigbee.function.dto.AirTemperatureSettingDto;
+import com.zigbee.function.dto.ControlInfoInputDto;
 import com.zigbee.function.dto.CozInputDto;
 import com.zigbee.function.dto.CozThresholdDto;
 import com.zigbee.function.dto.IIlluminanceInputDto;
 import com.zigbee.function.dto.IlluminanceThresholdDto;
 import com.zigbee.function.dto.ReportResultDto;
+import com.zigbee.function.dto.VideoInputDto;
 import com.zigbee.function.dto.WarningInputDto;
 import com.zigbee.function.service.IAirTemperatureAlarmService;
 import com.zigbee.function.service.IAirTemperatureService;
 import com.zigbee.function.service.ICfgThresholdService;
 import com.zigbee.function.service.ICozService;
 import com.zigbee.function.service.IIlluminanceService;
+import com.zigbee.function.service.ILightSwitchService;
+import com.zigbee.function.service.IVideoService;
 import com.zigbee.function.service.IWarningService;
 
 /**
@@ -60,6 +65,11 @@ public class ReportMgntController {
 	
 	@Autowired
 	private ICfgThresholdService cfgThresholdService ;
+	@Autowired
+	private IVideoService videoService ;
+	@Autowired
+	private ILightSwitchService lightSwitchService ;
+	
 	/*
 	 * temperature report
 	 */
@@ -74,7 +84,7 @@ public class ReportMgntController {
     }
 	
 	
-	@RequestMapping(value = "/temperature/threshold")
+	@RequestMapping(value = "/temperature/threshold",method =RequestMethod.POST)
 	@ResponseBody
     public AirTemperatureSettingDto airTemperatureReport() {
 		AirTemperatureSettingDto result = new AirTemperatureSettingDto();
@@ -96,7 +106,7 @@ public class ReportMgntController {
 	    return result;
     }
 	
-	@RequestMapping(value = "/co2/threshold")
+	@RequestMapping(value = "/co2/threshold" ,method =RequestMethod.POST)
 	@ResponseBody
     public CozThresholdDto cozThreshold(@RequestBody String query) {
 		CozThresholdDto result = new CozThresholdDto();
@@ -119,7 +129,7 @@ public class ReportMgntController {
 	/*
 	 * illuminance report 光照
 	 */
-	@RequestMapping(value = "/illuminance/threshold")
+	@RequestMapping(value = "/illuminance/threshold",method =RequestMethod.POST)
 	@ResponseBody
     public IlluminanceThresholdDto illuminanceThreshold() {
     	IlluminanceThresholdDto result = new IlluminanceThresholdDto();
@@ -133,7 +143,7 @@ public class ReportMgntController {
 	/**
 	 * water_level alarm_report
 	 */
-	@RequestMapping(value = "alarmReport")
+	@RequestMapping(value = "/alarmReport")
 	@ResponseBody
     public ReportResultDto waterLevelAlarmReport(@RequestBody String query) {
 		ReportResultDto result = new ReportResultDto();
@@ -142,5 +152,27 @@ public class ReportMgntController {
 		result.setErr_code(i);
 	    return result;
     }
+	
+	@RequestMapping(value = "/saveVideo")
+	@ResponseBody
+    public ReportResultDto saveVideo(@RequestBody String query) {
+		ReportResultDto result = new ReportResultDto();
+		VideoInputDto queryDto = JSON.parseObject(query, VideoInputDto.class);
+		int i = videoService.saveVideo(queryDto);
+		result.setErr_code(i);
+	    return result;
+    }
 
+	@RequestMapping(value = "/lightswitch/report")
+	@ResponseBody
+    public ReportResultDto lightSwitchReport(@RequestBody String query) {
+		ReportResultDto result = new ReportResultDto();
+		ControlInfoInputDto queryDto = JSON.parseObject(query, ControlInfoInputDto.class);
+		int i = lightSwitchService.controlInfoReport(queryDto);
+		result.setErr_code(i);
+	    return result;
+    }
+	
+	
+	
 }

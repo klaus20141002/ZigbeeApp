@@ -1,9 +1,9 @@
 /************************************************************************************
- * @File name   :      WarningServiceImpl.java
+ * @File name   :      LightSwitchServiceImpl.java
  *
- * @Author      :      DUZHOU
+ * @Author      :      Hasee
  *
- * @Date        :      2015年9月1日
+ * @Date        :      2015年9月10日
  *
  * @Copyright Notice: 
  * Copyright (c) 2011 , Inc. All  Rights Reserved.
@@ -14,9 +14,11 @@
  * 
  * ----------------------------------------------------------------------------------
  * Date								Who					Version				Comments
- * 2015年9月1日 下午11:36:05			DUZHOU			1.0				Initial Version
+ * 2015年9月10日 下午9:19:35			Hasee			1.0				Initial Version
  ************************************************************************************/
 package com.zigbee.function.service.impl;
+
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,36 +27,36 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zigbee.framework.common.exception.AppException;
 import com.zigbee.framework.common.service.impl.BaseServiceImpl;
 import com.zigbee.function.constant.ReportMgntConstants;
-import com.zigbee.function.dao.IWarningDao;
-import com.zigbee.function.domain.Warning;
-import com.zigbee.function.dto.WarningInputDto;
-import com.zigbee.function.service.IWarningService;
+import com.zigbee.function.dao.ILightSwitchDao;
+import com.zigbee.function.domain.LightSwitch;
+import com.zigbee.function.dto.ControlInfoInputDto;
+import com.zigbee.function.service.ILightSwitchService;
 
 /**
  *
  */
 @Transactional(rollbackFor = AppException.class)
 @Service
-public class WarningServiceImpl extends BaseServiceImpl implements IWarningService{
+public class LightSwitchServiceImpl  extends BaseServiceImpl implements ILightSwitchService{
 	@Autowired
-	private IWarningDao warningDao ;
-	
-	
+	private ILightSwitchDao lightSwitchDao ;
+
 	/** 
 	 * overridden:
-	 * @Author      :      DUZHOU
-	 * @Date        :      2015年9月5日
-	 * @see com.zigbee.function.service.IWarningService#alermReport(com.zigbee.function.dto.WarningInputDto)
+	 * @Author      :      Hasee
+	 * @Date        :      2015年9月10日
+	 * @see com.zigbee.function.service.ILightSwitchService#controlInfoReport(com.zigbee.function.dto.ControlInfoInputDto)
 	**/
 	@Override
-	public int alermReport(WarningInputDto dto) {
-		Warning obj = new Warning() ;
-		obj.setData_acqu_type(dto.getAlertType());
-		obj.setContent(String.valueOf(dto.getData_value()));
-		return warningDao.save(obj)!=null?ReportMgntConstants.REPORT_SUCCESS:ReportMgntConstants.REPORT_FAILURE;
+	public int controlInfoReport(ControlInfoInputDto dto) {
+		LightSwitch obj = new LightSwitch() ;
+		
+		obj.setDataValue(dto.getData_value());
+		obj.setType(dto.getType());
+		obj.setUploadDate(new Date());
+		return lightSwitchDao.save(obj)!=null?ReportMgntConstants.REPORT_SUCCESS:ReportMgntConstants.REPORT_FAILURE;
+		
 	}
-
-
 	
 	
 	

@@ -1,9 +1,9 @@
 /************************************************************************************
- * @File name   :      IlluminanceThresholdDto.java
+ * @File name   :      ILightSwitchService.java
  *
- * @Author      :      DUZHOU
+ * @Author      :      Hasee
  *
- * @Date        :      2015年8月31日
+ * @Date        :      2015年9月10日
  *
  * @Copyright Notice: 
  * Copyright (c) 2011 , Inc. All  Rights Reserved.
@@ -14,13 +14,17 @@
  * 
  * ----------------------------------------------------------------------------------
  * Date								Who					Version				Comments
- * 2015年8月31日 下午10:45:36			DUZHOU			1.0				Initial Version
+ * 2015年9月10日 下午9:19:24			Hasee			1.0				Initial Version
  ************************************************************************************/
-package com.zigbee.function.dto;
+package com.zigbee.function.service;
+
+import com.zigbee.function.dto.ControlInfoInputDto;
 
 /**
  *
  */
-public class IlluminanceThresholdDto {
-
+public interface ILightSwitchService {
+	
+	public int controlInfoReport(ControlInfoInputDto dto) ;
+	
 }

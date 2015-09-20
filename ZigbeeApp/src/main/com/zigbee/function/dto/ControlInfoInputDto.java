@@ -1,9 +1,9 @@
 /************************************************************************************
- * @File name   :      IlluminanceThresholdDto.java
+ * @File name   :      ControlInfoInputDto.java
  *
- * @Author      :      DUZHOU
+ * @Author      :      Hasee
  *
- * @Date        :      2015年8月31日
+ * @Date        :      2015年9月10日
  *
  * @Copyright Notice: 
  * Copyright (c) 2011 , Inc. All  Rights Reserved.
@@ -14,13 +14,28 @@
  * 
  * ----------------------------------------------------------------------------------
  * Date								Who					Version				Comments
- * 2015年8月31日 下午10:45:36			DUZHOU			1.0				Initial Version
+ * 2015年9月10日 下午9:22:01			Hasee			1.0				Initial Version
  ************************************************************************************/
 package com.zigbee.function.dto;
+
 
 /**
  *
  */
-public class IlluminanceThresholdDto {
-
+public class ControlInfoInputDto {
+	    private Integer type;
+	    private Integer data_value;
+		public Integer getType() {
+			return type;
+		}
+		public void setType(Integer type) {
+			this.type = type;
+		}
+		public Integer getData_value() {
+			return data_value;
+		}
+		public void setData_value(Integer data_value) {
+			this.data_value = data_value;
+		}
+	    
 }
