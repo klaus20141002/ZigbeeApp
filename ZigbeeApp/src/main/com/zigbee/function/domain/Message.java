@@ -15,8 +15,8 @@ public class Message implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id ;
-	private String equipmentId;
-	private String status;
+	private int equipmentId;
+	private int status;
 	
 	
 	/**
@@ -46,26 +46,26 @@ public class Message implements Serializable {
 	 * @return the equipmentId
 	 */
 	@Column(name = "EQUIPMENT_ID")
-	public String getEquipmentId() {
+	public int getEquipmentId() {
 		return equipmentId;
 	}
 	/**
 	 * @param equipmentId the equipmentId to set
 	 */
-	public void setEquipmentId(String equipmentId) {
+	public void setEquipmentId(int equipmentId) {
 		this.equipmentId = equipmentId;
 	}
 	/**
 	 * @return the status
 	 */
 	@Column(name = "STATUS")
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	

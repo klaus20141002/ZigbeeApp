@@ -20,7 +20,9 @@ package com.zigbee.function.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,8 +37,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zigbee.framework.common.controller.BaseController;
+import com.zigbee.framework.common.exception.AppException;
 import com.zigbee.framework.common.util.JSONUtil;
+import com.zigbee.function.constant.EquipmentConstants;
 import com.zigbee.function.constant.GreenhouseCommonConstants;
+import com.zigbee.function.domain.Message;
 import com.zigbee.function.dto.CascadeCfgEditDto;
 import com.zigbee.function.dto.ChartSeriesDto;
 import com.zigbee.function.dto.EquipSwitchScheduleEditDto;
@@ -47,6 +52,7 @@ import com.zigbee.function.dto.LightTriggerMasterDto;
 import com.zigbee.function.dto.MonitorDetailDto;
 import com.zigbee.function.dto.ThresholdMasterDto;
 import com.zigbee.function.service.IGreenhouseService;
+import com.zigbee.function.util.MessageUtil;
 
 /**
  *
@@ -58,6 +64,8 @@ public class GreenhouseMgntController extends BaseController {
 	@Autowired
     private IGreenhouseService greenhouseService;
 	
+	private static  Map mapList = new HashMap<Integer,Integer>() ;
+//	Map.p
 	/**
 	 * 进入web程序入口，构建首页
 	 * @Author      :      ZHWANG
@@ -445,10 +453,21 @@ public class GreenhouseMgntController extends BaseController {
 	@ResponseBody
 	public String saveEquipSwitchSchedule(EquipSwitchScheduleEditDto editDto, Model model,
 	        HttpServletRequest request,HttpServletResponse response) {
-		if(editDto.getCurMode()==null){
-			editDto.setCurMode(GreenhouseCommonConstants.SYSCONTROL_MODE_AUTO);
+		try {
+			if(editDto.getCurMode()==null){
+				editDto.setCurMode(GreenhouseCommonConstants.SYSCONTROL_MODE_AUTO);
+			}
+			boolean result = greenhouseService.saveSysControlMode(editDto);
+			MessageUtil.openChannel();
+			Message message = new Message() ;
+			message.setEquipmentId(editDto.getEquipmentId());
+//			map.get
+//			message.setStatus(EquipmentConstants.control_model_auto);
+			MessageUtil.sendMessage(message);
+		} catch (AppException e) {
+			e.printStackTrace();
 		}
-//		boolean result = greenhouseService.saveSysControlMode(editDto);
+		
 		return "success";
 	}
 	

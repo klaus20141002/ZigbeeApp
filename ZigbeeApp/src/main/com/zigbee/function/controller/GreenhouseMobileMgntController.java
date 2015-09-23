@@ -35,8 +35,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zigbee.framework.common.controller.BaseController;
+import com.zigbee.framework.common.exception.AppException;
 import com.zigbee.framework.common.util.JSONUtil;
+import com.zigbee.function.constant.EquipmentConstants;
 import com.zigbee.function.constant.GreenhouseCommonConstants;
+import com.zigbee.function.domain.Message;
 import com.zigbee.function.domain.MonitorPoint;
 import com.zigbee.function.dto.ChartSeriesDto;
 import com.zigbee.function.dto.EquipmentResultDto;
@@ -44,6 +47,7 @@ import com.zigbee.function.dto.GreenhouseQueryDto;
 import com.zigbee.function.dto.GreenhouseResultDto;
 import com.zigbee.function.dto.MonitorDetailDto;
 import com.zigbee.function.service.IGreenhouseService;
+import com.zigbee.function.util.MessageUtil;
 
 /**
  *
@@ -248,17 +252,30 @@ public class GreenhouseMobileMgntController extends BaseController {
 	 */
 	@RequestMapping(value = "/toAutoControlPage")
     public String toAutoControlPage( Model model,
-        HttpServletRequest request) throws JSONException  {
-		String monitorCode = "monitorpoint1";
-		MonitorDetailDto dto = greenhouseService.getMonitorDetailDtoByCode(monitorCode);
-        model.addAttribute("dto", dto);
-        //chart
-        List<ChartSeriesDto> seriesDtoList = greenhouseService.getTemperatureChart(GreenhouseCommonConstants.FETCH_TYPE_DAILY, 1);
-        String resultJsonChart = JSONUtil.toJSONString(seriesDtoList);
-        model.addAttribute("resultDtoChart",resultJsonChart);
-        String resultxAxis = JSONUtil.toJSONString(seriesDtoList.get(0).getxAxis());
-        model.addAttribute("xAxisList", resultxAxis);
-        
+        HttpServletRequest request)  {
+		try {
+			String monitorCode = "monitorpoint1";
+			MonitorDetailDto dto = greenhouseService.getMonitorDetailDtoByCode(monitorCode);
+			model.addAttribute("dto", dto);
+			//chart
+			List<ChartSeriesDto> seriesDtoList = greenhouseService.getTemperatureChart(GreenhouseCommonConstants.FETCH_TYPE_DAILY, 1);
+			String resultJsonChart = JSONUtil.toJSONString(seriesDtoList);
+			model.addAttribute("resultDtoChart",resultJsonChart);
+			String resultxAxis = JSONUtil.toJSONString(seriesDtoList.get(0).getxAxis());
+			model.addAttribute("xAxisList", resultxAxis);
+			
+			MessageUtil.openChannel();
+			Message message = new Message() ;
+	        message.setEquipmentId(EquipmentConstants.control_model);
+	        message.setStatus(EquipmentConstants.control_model_auto);
+			MessageUtil.sendMessage(message);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return "mobile/autoControlPage";
     }
 	
@@ -272,18 +289,28 @@ public class GreenhouseMobileMgntController extends BaseController {
 	 */
 	@RequestMapping(value = "/toManualControlPage")
     public String toManualControlPage( Model model,
-        HttpServletRequest request)  throws JSONException  {
-		String monitorCode = "monitorpoint1";
-		MonitorDetailDto dto = greenhouseService.getMonitorDetailDtoByCode(monitorCode);
-        model.addAttribute("dto", dto);
-        
-        //chart
-        List<ChartSeriesDto> seriesDtoList = greenhouseService.getTemperatureChart(GreenhouseCommonConstants.FETCH_TYPE_DAILY, 1);
-        String resultJsonChart = JSONUtil.toJSONString(seriesDtoList);
-        model.addAttribute("resultDtoChart",resultJsonChart);
-        String resultxAxis = JSONUtil.toJSONString(seriesDtoList.get(0).getxAxis());
-        model.addAttribute("xAxisList", resultxAxis);
-        
+        HttpServletRequest request) {
+		try {
+			String monitorCode = "monitorpoint1";
+			MonitorDetailDto dto = greenhouseService.getMonitorDetailDtoByCode(monitorCode);
+			model.addAttribute("dto", dto);
+			
+			//chart
+			List<ChartSeriesDto> seriesDtoList = greenhouseService.getTemperatureChart(GreenhouseCommonConstants.FETCH_TYPE_DAILY, 1);
+			String resultJsonChart = JSONUtil.toJSONString(seriesDtoList);
+			model.addAttribute("resultDtoChart",resultJsonChart);
+			String resultxAxis = JSONUtil.toJSONString(seriesDtoList.get(0).getxAxis());
+			model.addAttribute("xAxisList", resultxAxis);
+			MessageUtil.openChannel();
+			Message message = new Message() ;
+	        message.setEquipmentId(EquipmentConstants.control_model);
+	        message.setStatus(EquipmentConstants.control_model_manual);
+			MessageUtil.sendMessage(message);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (AppException e) {
+			e.printStackTrace();
+		}
         return "mobile/manualControlPage";
     }
 }
