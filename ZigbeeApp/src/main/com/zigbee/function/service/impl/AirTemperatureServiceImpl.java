@@ -60,8 +60,10 @@ public class AirTemperatureServiceImpl extends BaseServiceImpl implements IAirTe
 		AirWetness airWetness =  new AirWetness() ;
 		airTemperature.setUploadDate(new Date());
 		airTemperature.setEquipmentId(1);
+		airTemperature.setDataValue(Float.parseFloat(dto.getTemp_val()));
 		airWetness.setUploadDate(new Date());
 		airWetness.setEquipmentId(1);
+		airWetness.setDataValue(Float.parseFloat(dto.getHum_val()));
 		return airTemperatureDao.save(airTemperature)!=null&&airWetnessDao.save(airWetness)!=null?ReportMgntConstants.REPORT_SUCCESS:ReportMgntConstants.REPORT_FAILURE;
 	}
 

@@ -65,8 +65,8 @@ public class MonitorPointDaoImpl extends BaseIntDaoImpl<MonitorPoint, Integer>
 			 + GreenhouseCommonConstants.EQUIPMENT_TYPE_DATA_ACQUISITION ;
 
 	        String hql = "select mp.id, e.id,mp.point_name,te.atd, aw.wdv, li.ldv" +
-	        		" ,0.0,0.0,0.0,te.last_update_date \n"
-	            + " from tm_monitor_point mp \n "
+	        		" ,0.0,0.0,0.0,te.last_update_date,coo.cdv "
+	            + " from tm_monitor_point mp "
 	            + " inner join tm_equipment e on e.monitor_point_id = mp.id and e.equip_type = " + GreenhouseCommonConstants.EQUIPMENT_TYPE_DATA_ACQUISITION
 	            + " left join (select equipment_id, max(id) as id from air_temperature_tbl te group by equipment_id ) atn on e.id = atn.equipment_id \n "
 	            + " left join (select id, data_value as atd,`timestamp` as last_update_date from  air_temperature_tbl) te on te.id = atn.id  \n "
@@ -74,6 +74,8 @@ public class MonitorPointDaoImpl extends BaseIntDaoImpl<MonitorPoint, Integer>
 	            + " left join (select id as id, data_value as wdv from air_wetness_tbl) aw on aw.id = awn.id  \n "
 	            + " left join (select equipment_id, max(id) as id from light_tbl li group by equipment_id ) lin on e.id = lin.equipment_id \n "
 	            + " left join (select id, data_value as ldv,`timestamp` as last_update_date from  light_tbl ) li on li.id = lin.id  \n "
+	            + " left join (select equipment_id, max(id) as id from co2_tbl co2 group by equipment_id ) co2n on e.id = co2n.equipment_id \n "
+	            + " left join (select id, data_value cdv,`uploadDate` as last_update_date from  co2_tbl ) coo on coo.id = co2n.id  \n "
 	            + " where 1=1 ";
 
 
@@ -105,7 +107,7 @@ public class MonitorPointDaoImpl extends BaseIntDaoImpl<MonitorPoint, Integer>
 	        		dto.setAirTemperatureValue(Utils.getFloat(objects[3]));
 	        		dto.setAirWetnessValue(Utils.getFloat(objects[4]));
 	        		dto.setLightValue(Utils.getInt(objects[5]));
-	        		dto.setCO2Value(0f);
+	        		dto.setCO2Value(Utils.getFloat(objects[10]));
 	        		dto.setSoilTemperatureValue(0f);
 	        		dto.setSoilWetnessValue(0f);
 	        		dto.setUploadDate(Utils.getDate(objects[9]));

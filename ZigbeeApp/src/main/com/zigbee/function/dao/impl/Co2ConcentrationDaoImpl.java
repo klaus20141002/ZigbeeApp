@@ -55,8 +55,7 @@ public class Co2ConcentrationDaoImpl  extends BaseIntDaoImpl<Co2Concentration, I
 	@Override
 	public List<Co2Concentration> getHoursListByEquipId(Integer equipmentId) {
 		String sql = "select t.* from co2_tbl t where id in ( " + 
-                " SELECT min(id) FROM co2_tbl where equipment_id = " + equipmentId + 
-                " and `uploadDate`> curdate() " + 
+                " SELECT min(id) FROM co2_tbl where `uploadDate`> curdate() " + 
                 " group by hour(`uploadDate`)) order by `uploadDate` asc " ;
 		return this.getListByNativeQuery(sql);
 	}
