@@ -266,8 +266,8 @@ public class GreenhouseMobileMgntController extends BaseController {
 			
 			MessageUtil.openChannel();
 			Message message = new Message() ;
-	        message.setEquipmentId(EquipmentConstants.control_model);
-	        message.setStatus(EquipmentConstants.control_model_auto);
+	        message.setEquipmentId(EquipmentConstants.CONTROL_MODEL);
+	        message.setStatus(EquipmentConstants.CONTROL_MODEL_AUTO);
 			MessageUtil.sendMessage(message);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -303,8 +303,8 @@ public class GreenhouseMobileMgntController extends BaseController {
 			model.addAttribute("xAxisList", resultxAxis);
 			MessageUtil.openChannel();
 			Message message = new Message() ;
-	        message.setEquipmentId(EquipmentConstants.control_model);
-	        message.setStatus(EquipmentConstants.control_model_manual);
+	        message.setEquipmentId(EquipmentConstants.CONTROL_MODEL);
+	        message.setStatus(EquipmentConstants.CONTROL_MODEL_MANUAL);
 			MessageUtil.sendMessage(message);
 		} catch (JSONException e) {
 			e.printStackTrace();

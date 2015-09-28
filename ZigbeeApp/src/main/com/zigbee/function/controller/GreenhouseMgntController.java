@@ -457,12 +457,11 @@ public class GreenhouseMgntController extends BaseController {
 			if(editDto.getCurMode()==null){
 				editDto.setCurMode(GreenhouseCommonConstants.SYSCONTROL_MODE_AUTO);
 			}
-			boolean result = greenhouseService.saveSysControlMode(editDto);
+		    greenhouseService.saveSysControlMode(editDto);
 			MessageUtil.openChannel();
 			Message message = new Message() ;
 			message.setEquipmentId(editDto.getEquipmentId());
-//			map.get
-//			message.setStatus(EquipmentConstants.control_model_auto);
+			message.setStatus(editDto.getCurMode());
 			MessageUtil.sendMessage(message);
 		} catch (AppException e) {
 			e.printStackTrace();

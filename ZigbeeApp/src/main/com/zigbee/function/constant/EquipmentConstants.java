@@ -22,10 +22,19 @@ package com.zigbee.function.constant;
  *
  */
 public class EquipmentConstants {
-	public static final int control_model  = 0 ;
-	public static final int control_model_manual = 1 ;
-	public static final int control_model_auto = 2 ;
+	public static final int CONTROL_MODEL  = 0 ;
+	public static final int CONTROL_MODEL_MANUAL = 1 ;
+	public static final int CONTROL_MODEL_AUTO = 2 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_LIGHT_1  = 1 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_LIGHT_2  = 2 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_LIGHT_3  = 3 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_LIGHT_4  = 4 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_LIGHT_5  = 5 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_LIGHT_6 = 6 ;
 	
-	
+	public static final int CONTROL_MODEL_EQUIPMENT_COZ_1  = 7 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_COZ_2  = 8 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_PUMP  = 9 ;
+	public static final int CONTROL_MODEL_EQUIPMENT_WED  = 10 ;
 
 }
