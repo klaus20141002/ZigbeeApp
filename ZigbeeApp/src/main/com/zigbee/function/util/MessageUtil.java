@@ -35,18 +35,17 @@ import com.zigbee.function.domain.Message;
  *
  */
 public class MessageUtil {
-	private final static String QUEUE_NAME = "ControllerQueue";  
-	public static void sendMessage(Message message) throws AppException{
+	public static void sendMessage(Message message, String queueName) throws AppException{
 			try {
-				Channel channel = openChannel() ;
-				channel.basicPublish("", QUEUE_NAME, null, JSON.toJSONString(message).getBytes());
+				Channel channel = openChannel(null) ;
+				channel.basicPublish("", queueName, null, JSON.toJSONString(message).getBytes());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
         
 	}
 	
-	public static Channel openChannel() {
+	public static Channel openChannel(String queueName) {
 		ConnectionFactory factory = new ConnectionFactory();  
 		
 		Channel channel;
@@ -54,7 +53,7 @@ public class MessageUtil {
 			factory.setHost("45.63.124.106");
 			Connection connection = factory.newConnection();  
 			channel = connection.createChannel();
-			channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+			channel.queueDeclare(queueName, false, false, false, null);
 			return channel ;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,14 +65,14 @@ public class MessageUtil {
 	}
 	
 	
-	public static void reciveMessage() {
+	public static void reciveMessage(String queueName) {
 		try {
-			Channel channel = openChannel() ;
+			Channel channel = openChannel(null) ;
 			
 			System.out.println(" [*] Waiting for messages");  
   
 			QueueingConsumer consumer = new QueueingConsumer(channel);  
-			channel.basicConsume(QUEUE_NAME, true, consumer);  
+			channel.basicConsume(queueName, true, consumer);  
   
 			while (true) {  
 			    QueueingConsumer.Delivery delivery = consumer.nextDelivery();  

@@ -39,7 +39,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.zigbee.framework.common.controller.BaseController;
 import com.zigbee.framework.common.exception.AppException;
 import com.zigbee.framework.common.util.JSONUtil;
-import com.zigbee.function.constant.EquipmentConstants;
 import com.zigbee.function.constant.GreenhouseCommonConstants;
 import com.zigbee.function.domain.Message;
 import com.zigbee.function.dto.CascadeCfgEditDto;
@@ -63,7 +62,8 @@ public class GreenhouseMgntController extends BaseController {
 
 	@Autowired
     private IGreenhouseService greenhouseService;
-	
+	private final static String QUEUE_NAME_CONTROL = "QUEUE_NAME_CONTROL";
+	private final static String QUEUE_NAME_MODEL = "QUEUE_NAME_MODEL";
 	private static  Map mapList = new HashMap<Integer,Integer>() ;
 //	Map.p
 	/**
@@ -240,15 +240,21 @@ public class GreenhouseMgntController extends BaseController {
 	 * @param response
 	 * @return
 	 * @throws IOException
+	 * @throws AppException 
 	 */
 	@RequestMapping(value = "/updateSwitchOnOff")
 	@ResponseBody
     public String updateSwitchOnOff(Integer equipmentId, Integer switchOnoff, Model model,
-        HttpServletRequest request,HttpServletResponse response) throws IOException {
+        HttpServletRequest request,HttpServletResponse response) throws IOException, AppException {
 		boolean result = greenhouseService.updateSwtichOnOff(equipmentId, switchOnoff);
 		if(!result){
 			return "failure";
 		}
+		MessageUtil.openChannel(QUEUE_NAME_CONTROL);
+		Message message = new Message() ;
+		message.setEquipmentId(equipmentId);
+		message.setStatus(switchOnoff);
+		MessageUtil.sendMessage(message, QUEUE_NAME_CONTROL);
 	    return "success";
     }
 	/**
@@ -458,11 +464,10 @@ public class GreenhouseMgntController extends BaseController {
 				editDto.setCurMode(GreenhouseCommonConstants.SYSCONTROL_MODE_AUTO);
 			}
 		    greenhouseService.saveSysControlMode(editDto);
-			MessageUtil.openChannel();
+			MessageUtil.openChannel(QUEUE_NAME_MODEL);
 			Message message = new Message() ;
-			message.setEquipmentId(editDto.getEquipmentId());
 			message.setStatus(editDto.getCurMode());
-			MessageUtil.sendMessage(message);
+			MessageUtil.sendMessage(message, QUEUE_NAME_MODEL);
 		} catch (AppException e) {
 			e.printStackTrace();
 		}

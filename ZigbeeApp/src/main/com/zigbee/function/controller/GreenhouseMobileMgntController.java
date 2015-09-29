@@ -37,7 +37,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.zigbee.framework.common.controller.BaseController;
 import com.zigbee.framework.common.exception.AppException;
 import com.zigbee.framework.common.util.JSONUtil;
-import com.zigbee.function.constant.EquipmentConstants;
 import com.zigbee.function.constant.GreenhouseCommonConstants;
 import com.zigbee.function.domain.Message;
 import com.zigbee.function.domain.MonitorPoint;
@@ -58,7 +57,7 @@ public class GreenhouseMobileMgntController extends BaseController {
 
 	@Autowired
     private IGreenhouseService greenhouseService;
-	
+	private final static String QUEUE_NAME_MODEL = "QUEUE_NAME_MODEL";
 	
 	@RequestMapping(value = "/monitor")
     public String getMonitorPage(GreenhouseQueryDto queryDto, Model model,
@@ -264,11 +263,10 @@ public class GreenhouseMobileMgntController extends BaseController {
 			String resultxAxis = JSONUtil.toJSONString(seriesDtoList.get(0).getxAxis());
 			model.addAttribute("xAxisList", resultxAxis);
 			
-			MessageUtil.openChannel();
+			MessageUtil.openChannel(QUEUE_NAME_MODEL);
 			Message message = new Message() ;
-	        message.setEquipmentId(EquipmentConstants.CONTROL_MODEL);
-	        message.setStatus(EquipmentConstants.CONTROL_MODEL_AUTO);
-			MessageUtil.sendMessage(message);
+	        message.setStatus(GreenhouseCommonConstants.SYSCONTROL_MODE_AUTO);
+			MessageUtil.sendMessage(message, QUEUE_NAME_MODEL);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -301,11 +299,10 @@ public class GreenhouseMobileMgntController extends BaseController {
 			model.addAttribute("resultDtoChart",resultJsonChart);
 			String resultxAxis = JSONUtil.toJSONString(seriesDtoList.get(0).getxAxis());
 			model.addAttribute("xAxisList", resultxAxis);
-			MessageUtil.openChannel();
+			MessageUtil.openChannel(QUEUE_NAME_MODEL);
 			Message message = new Message() ;
-	        message.setEquipmentId(EquipmentConstants.CONTROL_MODEL);
-	        message.setStatus(EquipmentConstants.CONTROL_MODEL_MANUAL);
-			MessageUtil.sendMessage(message);
+	        message.setStatus(GreenhouseCommonConstants.SYSCONTROL_MODE_MANUAL);
+			MessageUtil.sendMessage(message, QUEUE_NAME_MODEL);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (AppException e) {
