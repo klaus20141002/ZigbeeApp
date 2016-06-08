@@ -93,9 +93,6 @@
 	</bean>
 
 	
-		
-	<!-- <bean id="sampleAopAspect" class="com.sgm.service.common.aop.SampleAopAspect" 
-		/> -->
 
 	<!-- aop:aspectj-autoproxy proxy-target-class="true"/ -->
 	<!-- <aop:aspectj-autoproxy> -->
@@ -128,11 +125,5 @@
 	<bean id="stringHttpMessageConverter"
 		class="org.springframework.http.converter.StringHttpMessageConverter" />
 	<bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
-		<!--  <property name="aliases">
-			<props>
-				<prop key="person">com.sgm.dos3.common.domain.Person</prop>
-			</props>
-		</property>
-		-->
 	</bean>
 </beans> 

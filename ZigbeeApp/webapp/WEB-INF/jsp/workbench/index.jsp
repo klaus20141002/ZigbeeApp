@@ -418,7 +418,7 @@ color:#215d8d;
 <!-- 			<div class="info_right"> -->
 <!-- 				<span class="state"> -->
 <!-- 					<span>连接状态：</span> -->
-<!-- 					<span>已连接SGM</span> -->
+<!-- 					<span>已连接XXX</span> -->
 <!-- 				</span> -->
 <!-- 			</div> -->
 		</div>

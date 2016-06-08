@@ -94,7 +94,7 @@
 
 	
 		
-	<!-- <bean id="sampleAopAspect" class="com.sgm.service.common.aop.SampleAopAspect" 
+	<!-- <bean id="sampleAopAspect" class="com.XXX.service.common.aop.SampleAopAspect" 
 		/> -->
 
 	<!-- aop:aspectj-autoproxy proxy-target-class="true"/ -->
@@ -130,7 +130,7 @@
 	<bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
 		<!--  <property name="aliases">
 			<props>
-				<prop key="person">com.sgm.dos3.common.domain.Person</prop>
+				<prop key="person">com.XXX.dos3.common.domain.Person</prop>
 			</props>
 		</property>
 		-->

@@ -6,7 +6,6 @@
 	<persistence-unit name="dos3_common_test" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<!-- <jta-data-source>java:comp/env/dos3DS</jta-data-source>  -->
-		<!-- <class>com.sgm.dos3.common.domain.Person</class>	  -->	
 		<properties>
 			<!-- 数据库方言-->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />

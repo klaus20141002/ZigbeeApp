@@ -7,14 +7,14 @@
  *
  * @Copyright Notice: 
  * Copyright (c) 2011 Zhaogong, Inc. All  Rights Reserved.
- * This software is published under the terms of the SGM Software
+ * This software is published under the terms of the  Software 
  * License version 1.0, a copy of which has been included with this
  * distribution in the LICENSE.txt file.
  * 
  * 
  * ----------------------------------------------------------------------------------
  * Date                         Who             Version            Comments
- * 2011-2-23 ä¸Šå?ˆ11:09:17        Michael Gu        1.0               Initial Version
+ * 2011-2-23 ä¸Šï¿½?ï¿½11:09:17        Michael Gu        1.0               Initial Version
  ************************************************************************************/
 package com.zigbee.framework.common.util;
 
@@ -33,7 +33,7 @@ public final class TokenUtils {
     // create logger instance
     private static Log logger = LogFactory.getLog(TokenUtils.class);
     // cipher key
-    private static final String CIPHER_KEY = "sgm_0987654321";
+    private static final String CIPHER_KEY = "ABC_0987654321";
 
     /**
      * default private constructor

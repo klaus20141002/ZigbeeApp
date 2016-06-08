@@ -6,16 +6,16 @@
  * @Date        :      2011-6-8
  *
  * @Copyright Notice: 
- * Copyright (c) 2011 SGM, Inc. All  Rights Reserved.
- * This software is published under the terms of the SGM Software
+ * Copyright (c) 2011 . All  Rights Reserved.
+ * This software is published under the terms of the  Software 
  * License version 1.0, a copy of which has been included with this
  * distribution in the LICENSE.txt file.
  * 
  * 
  * ----------------------------------------------------------------------------
  * Date                   Who         Version        Comments
- * 2011-6-8 ä¸‹å?ˆ05:43:15        wujianxi     1.0            Initial Version
- * 2011-9-22 ä¸‹å?ˆ05:43:15       wangzhize     1.1          add 3 new method (getFirstKeyByValue,getkeySet,getValueList)
+ * 2011-6-8 ä¸‹ï¿½?ï¿½05:43:15        wujianxi     1.0            Initial Version
+ * 2011-9-22 ä¸‹ï¿½?ï¿½05:43:15       wangzhize     1.1          add 3 new method (getFirstKeyByValue,getkeySet,getValueList)
  *****************************************************************************/
 package com.zigbee.framework.common.util;
 

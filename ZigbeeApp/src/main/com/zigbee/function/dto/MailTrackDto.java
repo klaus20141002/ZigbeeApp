@@ -6,15 +6,15 @@
  * @Date        :      2011-10-1
  *
  * @Copyright Notice: 
- * Copyright (c) 2011 SGM, Inc. All  Rights Reserved.
- * This software is published under the terms of the SGM Software
+ * Copyright (c) 2011 . All  Rights Reserved.
+ * This software is published under the terms of the  Software 
  * License version 1.0, a copy of which has been included with this
  * distribution in the LICENSE.txt file.
  * 
  * 
  * ----------------------------------------------------------------------------------
  * Date								Who					Version				Comments
- * 2011-10-1 ÏÂÎç11:49:55			YIFEGU			1.0				Initial Version
+ * 2011-10-1 ï¿½ï¿½ï¿½ï¿½11:49:55			YIFEGU			1.0				Initial Version
  ************************************************************************************/
 package com.zigbee.function.dto;
 

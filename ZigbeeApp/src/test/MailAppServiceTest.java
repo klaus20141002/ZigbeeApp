@@ -103,7 +103,7 @@ public class MailAppServiceTest extends AbstractJUnit4SpringContextTests  {
 		
 		WarningInputDto dto = new WarningInputDto();
 		dto.setAlertType(WarningConstants.COZ_WARING);
-		dto.setDataDalue(20);
+		//dto.setDataDalue(20);
 		warningService.alermReport(dto);
 	}
 }
