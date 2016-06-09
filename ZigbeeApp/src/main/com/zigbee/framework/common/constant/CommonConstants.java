@@ -22,5 +22,7 @@ package com.zigbee.framework.common.constant;
  * Define the common constants for common service
  */
 public interface CommonConstants {
+	public static final String REQUEST_ATTRIBUTE_PAGER = "pager";
 	
+
 }
